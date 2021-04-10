@@ -9,20 +9,12 @@ conn = sqlite3.connect("dataBase/MasterDB.db")
 cursor = conn.cursor()
 
 
-class LibraryStaff:
+def create_new_user(user_name, pass_word):
     cursor.execute("SELECT id FROM Librarian")
     TOTAL_LIBRARIAN = len(cursor.fetchall())
-
-    def __init__(self, user_name, pass_word):
-        self.user_name = user_name
-        self.pass_word = pass_word
-        LibraryStaff.TOTAL_LIBRARIAN += 1
-        cursor.execute("INSERT INTO Librarian (id, username, password) VALUES ({}, '{}', '{}')".format(LibraryStaff.TOTAL_LIBRARIAN, self.user_name, self.pass_word))
-        conn.commit()
-
-
-def create_new_user(user_name, pass_word):
-    LibraryStaff(user_name, pass_word)
+    TOTAL_LIBRARIAN += 1
+    cursor.execute("INSERT INTO Librarian (id, username, password) VALUES ({}, '{}', '{}')".format(TOTAL_LIBRARIAN, user_name, pass_word))
+    conn.commit()
 
 
 def update_password(user_name, new_password):
