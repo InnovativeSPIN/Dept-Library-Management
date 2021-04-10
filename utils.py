@@ -1,6 +1,6 @@
 """
 Date started   : 09 Apr 2021
-Authors        : MANOJ_KUMAR_S | SARAVANA_M | HARI_PRASAD_J
+Authors        : MANOJ_KUMAR_S | SARAVANAN_M | HARI_PRASAD_J
 """
 import sqlite3
 
@@ -10,7 +10,8 @@ cursor = conn.cursor()
 
 
 class LibraryStaff:
-    TOTAL_LIBRARIAN = 0
+    cursor.execute("SELECT id FROM Librarian")
+    TOTAL_LIBRARIAN = len(cursor.fetchall())
 
     def __init__(self, user_name, pass_word):
         self.user_name = user_name
