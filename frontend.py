@@ -165,7 +165,7 @@ class NewUserPage:
                                          borderwidth=0.25, command=lambda : self.on_click_register())
         self.window = window
         self.error_in_login = tk.Label(window, text='Check your input !', font=('lato', 15),
-                                       bg='white', fg='grey')
+                                       bg='white', fg='red')
 
     def clear_error(self):
         try:
