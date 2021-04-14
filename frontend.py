@@ -141,12 +141,14 @@ class NewUserPage:
         self.new_user_lable = tk.Label(window, text='Username :', bg='white', font=(None, 15))
         self.new_user_box = tk.Entry(window, borderwidth=2, bg='white', font=('times new roman', 14))
         self.new_pass_lable = tk.Label(window, text='New Password : ', bg='white', font=(None, 15))
-        self.new_pass_box = tk.Entry(window, borderwidth=2, bg='white', font=('times new roman', 14))
+        self.new_pass_box = tk.Entry(window, borderwidth=2, bg='white',show='*', font=('times new roman', 14))
         self.conf_new_pass_lable = tk.Label(window, text='Confirm Password : ', bg='white', font=(None, 15))
-        self.conf_new_pass_box = tk.Entry(window, borderwidth=2, bg='white', font=('times new roman', 14))
+        self.conf_new_pass_box = tk.Entry(window, borderwidth=2,show='*', bg='white', font=('times new roman', 14))
         self.register_button = tk.Button(window, text='Register', bg='white', font=(None, 18),
                                          command=lambda : self.on_click_register(self.new_user_box, self.new_pass_box))
         self.window = window
+        self.error_msg = tk.Label(window, text='Fill all', font=('times new roman', 12),
+                                       bg='red', fg='black')
 
     def show(self):
         self.register_button.place(x=728, y=390, height=27)
@@ -157,14 +159,21 @@ class NewUserPage:
 
         self.new_user_lable.place(x=320, y=277)
         self.new_pass_lable.place(x=320, y=337)
-        self.conf_new_pass_lable.place(x=320, y=367)
+        self.conf_new_pass_lable.place(x=315, y=397)
 
     def on_click_register(self, username_box, password_box):
         new_user = username_box.get()
         new_password = password_box.get()
-        create_new_user(new_user, new_password)
-        self.clear()
-        LoginPage(self.window).show()
+        if new_password=="" or new_user=="":
+            self.error_msg.place(x=430, y=200)
+        else:
+            create_new_user(new_user, new_password)
+            self.clear()
+            try:
+                self.error_msg.place_forget()
+            except:
+                pass
+            LoginPage(self.window).show()
 
     def clear(self):
         self.register_button.place_forget()
