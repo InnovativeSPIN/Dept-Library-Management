@@ -1,6 +1,6 @@
 import sqlite3
 import numpy as np
-
+import datetime
 
 # connecting to the database
 conn = sqlite3.connect("dataBase/MasterDB.db")
@@ -41,6 +41,64 @@ def validate_user(user_name, pass_word):
             return False
     except:
         return False
+
+
+def add_book_2_library(book_id, title, author):
+    cursor.execute("INSERT INTO book_details VALUES ('{}', '{}', '{}')".format(book_id, title, author))
+    conn.commit()
+    cursor.execute("SELECT title FROM available_books")
+    availe_books_title = np.array(cursor.fetchall()).flatten().tolist()
+    if title in availe_books_title:
+        cursor.execute(
+            "UPDATE available_books SET numbers = (SELECT numbers FROM available_books where title='{}')+1".format(
+                title))
+        conn.commit()
+    else:
+        cursor.execute("INSERT INTO available_books values ('{}', {})".format(title, 1))
+        conn.commit()
+
+
+def add_issued_book_to_db(roll_no, book_id, validation_date):
+    cursor.execute("INSERT INTO books_burrowed VALUES ('{}', '{}', '{}')".format(roll_no, book_id, validation_date))
+    cursor.execute("SELECT title FROM book_details WHERE book_id='{}'".format(book_id))
+    burrowed_book_title = cursor.fetchall()[0][0]
+    cursor.execute(
+        "UPDATE available_books SET numbers = (SELECT numbers FROM available_books where title='{}')-1".format(
+            burrowed_book_title))
+    conn.commit()
+
+
+def add_2_report(roll_no, book_id, curr_librarian):
+    today_date = datetime.date.today().strftime("%d/%m/%Y")
+    curr_time = datetime.datetime.now().strftime("%H:%M:%S")
+    valid_date = (datetime.date.today() + datetime.timedelta(days=14)).strftime("%d/%m/%Y")
+    cursor.execute("SELECT title author FROM book_details WHERE book_id='{}'".format(book_id))
+    title, author = cursor.fetchall()[0]
+    cursor.execute("INSERT INTO FullReport "
+                   "(rollno, book_id, title_of_book, author_of_book, given_by, given_date, given_time, validate_date)"
+                   "VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}');".format(roll_no, book_id, title, author,
+                                                                                     curr_librarian, today_date,
+                                                                                     curr_time, valid_date))
+    conn.commit()
+
+
+def return_book(roll_no, book_id, curr_librarian):
+    today_date = datetime.date.today().strftime("%d/%m/%Y")
+    curr_time = datetime.datetime.now().strftime("%H:%M:%S")
+    cursor.execute("SELECT title author FROM book_details WHERE book_id='{}'".format(book_id))
+    title, author = cursor.fetchall()[0]
+    cursor.execute("UPDATE FullReport SET "
+                   "returned_to='{}', return_date='{}', return_time='{}', is_book_returned='{}' WHERE "
+                   "rollno='{}' AND book_id='{}' AND is_book_returned='{}';".format(curr_librarian,
+                                                                                    today_date,
+                                                                                    curr_time,
+                                                                                    "yes", roll_no, book_id, "no"))
+    conn.commit()
+    cursor.execute("DELETE FROM books_burrowed WHERE rollno='{}' AND bookid='{}'".format(roll_no, book_id))
+    cursor.execute(
+        "UPDATE available_books SET numbers = (SELECT numbers FROM available_books where title='{}')+1".format(
+            title))
+    conn.commit()
 
 
 def close_db():

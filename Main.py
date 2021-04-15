@@ -10,7 +10,7 @@ window.geometry('1366x768')
 window.minsize(1366, 768)
 window.maxsize(1366, 768)
 window.title('Library Management System')
-
+#window.wm_overrideredirect(True)
 log_page = LoginPage(window)
 log_page.show()
 
