@@ -14,14 +14,16 @@ def get_user_names():
     return users.flatten().tolist()
 
 
-def create_new_user(user_name, pass_word):
+def create_new_user(user_name, pass_word, namee, desig):
     # Creating the new user and adding that to DB
     cursor.execute("SELECT id FROM Librarian")
     TOTAL_LIBRARIAN = len(cursor.fetchall())
     TOTAL_LIBRARIAN += 1
     cursor.execute(
-        "INSERT INTO Librarian (id, username, password) VALUES ({}, '{}', '{}')".format(TOTAL_LIBRARIAN,
-                                                                                        user_name, pass_word))
+        "INSERT INTO Librarian (id, username, password, name, designation) VALUES ({}, '{}', '{}', '{}', '{}')".format(
+                                                                                            TOTAL_LIBRARIAN,
+                                                                                            user_name, pass_word,
+                                                                                            namee, desig))
     conn.commit()
 
 
@@ -98,6 +100,12 @@ def return_book(roll_no, book_id, curr_librarian):
     cursor.execute(
         "UPDATE available_books SET numbers = (SELECT numbers FROM available_books where title='{}')+1".format(
             title))
+    conn.commit()
+
+
+def add_student_2_db(roll_no, stu_name, stu_semester, stu_dept):
+    cursor.execute("INSERT INTO student_details VALUES ('{}', '{}', '{}', '{}')".format(roll_no, stu_name,
+                                                                                        stu_semester, stu_dept))
     conn.commit()
 
 
