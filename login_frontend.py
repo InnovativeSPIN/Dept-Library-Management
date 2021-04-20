@@ -14,6 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
+        self.dialog = Dialog
         Dialog.setObjectName("LMS LOGIN")
         Dialog.resize(1366, 768)
         Dialog.setMinimumSize(QtCore.QSize(1366, 768))
@@ -176,7 +177,7 @@ class Ui_Dialog(object):
         font.setBold(True)
         font.setWeight(75)
         self.tabWidget.setFont(font)
-        self.tabWidget.setTabPosition(QtWidgets.QTabWidget.West)
+        self.tabWidget.setTabPosition(QtWidgets.QTabWidget.North)
         self.tabWidget.setTabShape(QtWidgets.QTabWidget.Triangular)
         self.tabWidget.setObjectName("tabWidget")
         self.login = QtWidgets.QWidget()
@@ -355,7 +356,7 @@ class Ui_Dialog(object):
         self.fconcpass_box.setObjectName("fconcpass_box")
 
         self.finish_btn = QtWidgets.QPushButton(self.tab_3)
-        self.finish_btn.setGeometry(QtCore.QRect(290, 290, 75, 23))
+        self.finish_btn.setGeometry(QtCore.QRect(320, 270, 75, 23))
         self.finish_btn.setObjectName("finish_btn")
         self.finish_btn.clicked.connect(self.onclick_forgot_finish)
         self.tabWidget.addTab(self.tab_3, "")
@@ -393,6 +394,11 @@ class Ui_Dialog(object):
         username = self.usr_cbox.currentText()
         password = self.pass_box.text()
         verification = validate_user(username, password)
+        if verification:
+            self.dialog.close()
+
+        else:
+            pass
 
     def onclick_register(self):
         name = self.name_box.text()
@@ -440,15 +446,3 @@ class Ui_Dialog(object):
             update_password(username, new_password)
         else:
             pass
-
-
-if __name__ == "__main__":
-    import sys
-
-    app = QtWidgets.QApplication(sys.argv)
-    app.setStyle("fusion")
-    Dialog = QtWidgets.QDialog()
-    ui = Ui_Dialog()
-    ui.setupUi(Dialog)
-    Dialog.show()
-    sys.exit(app.exec_())

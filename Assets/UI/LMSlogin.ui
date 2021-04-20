@@ -38,7 +38,7 @@
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap>asset/Web 1920 – 1.png</pixmap>
+    <pixmap>../Web 1920 – 1.png</pixmap>
    </property>
   </widget>
   <widget class="QTabWidget" name="tabWidget">
@@ -500,13 +500,13 @@
     </font>
    </property>
    <property name="tabPosition">
-    <enum>QTabWidget::West</enum>
+    <enum>QTabWidget::North</enum>
    </property>
    <property name="tabShape">
     <enum>QTabWidget::Triangular</enum>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="login">
     <attribute name="title">
@@ -612,8 +612,8 @@
     <widget class="QLabel" name="name_label">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>20</y>
+       <x>30</x>
+       <y>10</y>
        <width>101</width>
        <height>31</height>
       </rect>
@@ -634,8 +634,8 @@
     <widget class="QLineEdit" name="name_box">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>50</y>
+       <x>30</x>
+       <y>40</y>
        <width>281</width>
        <height>21</height>
       </rect>
@@ -644,8 +644,8 @@
     <widget class="QLabel" name="desi_label">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>80</y>
+       <x>30</x>
+       <y>70</y>
        <width>141</width>
        <height>31</height>
       </rect>
@@ -666,8 +666,8 @@
     <widget class="QComboBox" name="desi_cbox">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>110</y>
+       <x>30</x>
+       <y>100</y>
        <width>281</width>
        <height>22</height>
       </rect>
@@ -696,8 +696,8 @@
     <widget class="QLabel" name="rusr_label">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>140</y>
+       <x>30</x>
+       <y>130</y>
        <width>111</width>
        <height>31</height>
       </rect>
@@ -718,8 +718,8 @@
     <widget class="QLineEdit" name="rusr_box">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>170</y>
+       <x>30</x>
+       <y>160</y>
        <width>281</width>
        <height>21</height>
       </rect>
@@ -728,8 +728,8 @@
     <widget class="QLabel" name="rpass_label">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>200</y>
+       <x>30</x>
+       <y>190</y>
        <width>111</width>
        <height>31</height>
       </rect>
@@ -750,8 +750,8 @@
     <widget class="QLineEdit" name="rpass_box">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>230</y>
+       <x>30</x>
+       <y>220</y>
        <width>131</width>
        <height>21</height>
       </rect>
@@ -760,8 +760,8 @@
     <widget class="QLabel" name="concpass_label">
      <property name="geometry">
       <rect>
-       <x>170</x>
-       <y>200</y>
+       <x>180</x>
+       <y>190</y>
        <width>201</width>
        <height>31</height>
       </rect>
@@ -782,8 +782,8 @@
     <widget class="QLineEdit" name="concpass_box">
      <property name="geometry">
       <rect>
-       <x>170</x>
-       <y>230</y>
+       <x>180</x>
+       <y>220</y>
        <width>131</width>
        <height>21</height>
       </rect>
@@ -792,8 +792,8 @@
     <widget class="QPushButton" name="register_btn">
      <property name="geometry">
       <rect>
-       <x>280</x>
-       <y>270</y>
+       <x>290</x>
+       <y>260</y>
        <width>75</width>
        <height>23</height>
       </rect>
@@ -938,14 +938,17 @@
     <widget class="QPushButton" name="finish_btn">
      <property name="geometry">
       <rect>
-       <x>290</x>
-       <y>290</y>
+       <x>320</x>
+       <y>270</y>
        <width>75</width>
        <height>23</height>
       </rect>
      </property>
      <property name="text">
       <string>Finish</string>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
      </property>
     </widget>
    </widget>
