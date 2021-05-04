@@ -214,6 +214,13 @@ def get_stu_details(roll_no):
     cursor.execute("SELECT name, year, department FROM student_details WHERE rollno='{}'".format(roll_no))
     return np.array(cursor.fetchall()).squeeze().tolist()
 
+def get_all_roll_no():
+    cursor.execute("SELECT rollno FROM student_details")
+    xx = np.array(cursor.fetchall()).squeeze().tolist()
+    cursor.execute("SELECT roll_number FROM faculty_details")
+    yy = np.array(cursor.fetchall()).squeeze().tolist()
+    return xx+yy
+
 
 def get_faculty_details(roll_no):
     cursor.execute("SELECT name, designation, department FROM faculty_details WHERE roll_number='{}'".format(roll_no))

@@ -4813,8 +4813,9 @@ class LibraryFrontend(object):
         roll_no = self.issue_register_cbox.text()
         no_of_book2issue = self.issue_no_of_books.currentText()
         if roll_no!="":
-            self.hide_issue_book_ids()
-            self.display_in_issue_page(role, roll_no, no_of_book2issue)
+            if roll_no in get_all_roll_no():
+                self.hide_issue_book_ids()
+                self.display_in_issue_page(role, roll_no, no_of_book2issue)
 
     def fill_table(self, table_name, datas):
         for row_number, row_data in enumerate(datas):
