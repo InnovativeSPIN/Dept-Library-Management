@@ -122,12 +122,13 @@ def return_book(ty, roll_no, book_id, curr_librarian):
 
 
 def add_student_2_db(roll_no, stu_name, year, stu_semester, stu_dept):
-    cursor.execute("INSERT INTO student_details VALUES ('{}', '{}', '{}', '{}', '{}')".format(roll_no, stu_name, year,
+    cursor.execute("INSERT OR IGNORE INTO student_details VALUES ('{}', '{}', '{}', '{}', '{}')".format(roll_no, stu_name, year,
                                                                                               stu_semester, stu_dept))
     conn.commit()
 
+
 def add_faculty_2_db(roll_no, name, designation, department):
-    cursor.execute("INSERT INTO faculty_details VALUES ('{}', '{}', '{}', '{}')".format(roll_no, name,
+    cursor.execute("INSERT OR IGNORE INTO faculty_details VALUES ('{}', '{}', '{}', '{}')".format(roll_no, name,
                                                                                         designation, department))
     conn.commit()
 
@@ -183,7 +184,7 @@ def get_available_book_by_title(title_substr):
     titles = np.array(cursor.fetchall()).flatten()
     ls = []
     for title in titles:
-        if title_substr.lower() in title:
+        if title_substr.lower() in title.lower().split():
             cursor.execute("SELECT book_id, title, author, type FROM book_details where title='{}'".format(title))
             ls += np.array(cursor.fetchall()).tolist()
     return ls
@@ -197,6 +198,7 @@ def get_available_book_by_type(typee):
         cursor.execute("SELECT book_id, title, author, type FROM book_details where title='{}' AND type='{}'".format(title, typee))
         ls += np.array(cursor.fetchall()).tolist()
     return ls
+
 
 
 def get_student_burrowed_details(reg_no):
