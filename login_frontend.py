@@ -4698,6 +4698,8 @@ class LibraryFrontend(object):
                     self.addstudentserror_msg.show()
                     return
             self.add_students_sucess_msg.show()
+        self.issue_register_cbox.addItems(get_faculty_roll_no())
+        self.issue_register_cbox.addItems(get_students_register_number())
 
     def onclick_faculty_browse_xcel(self):
         self.add_faculty_sucessful_msg.hide()
@@ -4713,6 +4715,8 @@ class LibraryFrontend(object):
                     self.add_faculty_error_msg.show()
                     return
             self.add_faculty_sucessful_msg.show()
+        self.issue_register_cbox.addItems(get_faculty_roll_no())
+        self.issue_register_cbox.addItems(get_students_register_number())
 
     def onclick_search_book_btn(self):
         self.search_book_table.setRowCount(0)
@@ -4811,8 +4815,9 @@ class LibraryFrontend(object):
         role = self.issue_role_cbox.currentText()
         roll_no = self.issue_register_cbox.currentText()
         no_of_book2issue = self.issue_no_of_books.currentText()
-        self.hide_issue_book_ids()
-        self.display_in_issue_page(role, roll_no, no_of_book2issue)
+        if roll_no!="":
+            self.hide_issue_book_ids()
+            self.display_in_issue_page(role, roll_no, no_of_book2issue)
 
     def fill_table(self, table_name, datas):
         for row_number, row_data in enumerate(datas):
