@@ -17,6 +17,7 @@ import sys
 class LoginFrontend(object):
     def setupUi(self, Dialog):
         self.dialog = Dialog
+        self.check_boxes_names = None
         self.library_frontend = LibraryFrontend()
         Dialog.setObjectName("LMS LOGIN")
         Dialog.resize(1366, 768)
@@ -876,13 +877,51 @@ class LibraryFrontend(object):
         self.issue_no_of_books.addItem("")
         self.issue_no_of_books.addItem("")
         self.issue_no_of_books.addItem("")
-        self.issue_bookId_label_d = QtWidgets.QLabel(self.issue_tab)
-        self.issue_bookId_label_d.setGeometry(QtCore.QRect(20, 190, 81, 21))
-        self.issue_bookId_label_d.setObjectName("issue_bookId_label_d")
-        self.issue_book_id_cbox_d = QtWidgets.QComboBox(self.issue_tab)
-        self.issue_book_id_cbox_d.setGeometry(QtCore.QRect(110, 190, 141, 22))
-        self.issue_book_id_cbox_d.setEditable(True)
-        self.issue_book_id_cbox_d.setObjectName("issue_book_id_cbox_d")
+        self.issue_bookId0_label_d = QtWidgets.QLabel(self.issue_tab)
+        self.issue_bookId0_label_d.setGeometry(QtCore.QRect(20, 190, 81, 21))
+        self.issue_bookId0_label_d.setObjectName("issue_bookId0_label_d")
+
+        self.issue_bookId1_label_d = QtWidgets.QLabel(self.issue_tab)
+        self.issue_bookId1_label_d.setGeometry(QtCore.QRect(20, 231, 81, 21))
+        self.issue_bookId1_label_d.setObjectName("issue_bookId1_label_d")
+
+        self.issue_bookId2_label_d = QtWidgets.QLabel(self.issue_tab)
+        self.issue_bookId2_label_d.setGeometry(QtCore.QRect(20, 271, 81, 21))
+        self.issue_bookId2_label_d.setObjectName("issue_bookId2_label_d")
+
+        self.issue_bookId3_label_d = QtWidgets.QLabel(self.issue_tab)
+        self.issue_bookId3_label_d.setGeometry(QtCore.QRect(20, 311, 81, 21))
+        self.issue_bookId3_label_d.setObjectName("issue_bookId3_label_d")
+
+        self.issue_bookId4_label_d = QtWidgets.QLabel(self.issue_tab)
+        self.issue_bookId4_label_d.setGeometry(QtCore.QRect(20, 351, 81, 21))
+        self.issue_bookId4_label_d.setObjectName("issue_bookId4_label_d")
+
+        self.issue_book_id0_cbox_d = QtWidgets.QComboBox(self.issue_tab)
+        self.issue_book_id0_cbox_d.setGeometry(QtCore.QRect(110, 190, 141, 22))
+        self.issue_book_id0_cbox_d.setEditable(True)
+        self.issue_book_id0_cbox_d.setObjectName("issue_book_id0_cbox_d")
+
+        self.issue_book_id1_cbox_d = QtWidgets.QComboBox(self.issue_tab)
+        self.issue_book_id1_cbox_d.setGeometry(QtCore.QRect(110, 231, 141, 22))
+        self.issue_book_id1_cbox_d.setEditable(True)
+        self.issue_book_id1_cbox_d.setObjectName("issue_book_id1_cbox_d")
+
+        self.issue_book_id2_cbox_d = QtWidgets.QComboBox(self.issue_tab)
+        self.issue_book_id2_cbox_d.setGeometry(QtCore.QRect(110, 271, 141, 22))
+        self.issue_book_id2_cbox_d.setEditable(True)
+        self.issue_book_id2_cbox_d.setObjectName("issue_book_id2_cbox_d")
+
+        self.issue_book_id3_cbox_d = QtWidgets.QComboBox(self.issue_tab)
+        self.issue_book_id3_cbox_d.setGeometry(QtCore.QRect(110, 311, 141, 22))
+        self.issue_book_id3_cbox_d.setEditable(True)
+        self.issue_book_id3_cbox_d.setObjectName("issue_book_id3_cbox_d")
+
+        self.issue_book_id4_cbox_d = QtWidgets.QComboBox(self.issue_tab)
+        self.issue_book_id4_cbox_d.setGeometry(QtCore.QRect(110, 351, 141, 22))
+        self.issue_book_id4_cbox_d.setEditable(True)
+        self.issue_book_id4_cbox_d.setObjectName("issue_book_id4_cbox_d")
+
         self.frame = QtWidgets.QFrame(self.issue_tab)
         self.frame.setGeometry(QtCore.QRect(620, 20, 491, 571))
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -895,13 +934,13 @@ class LibraryFrontend(object):
         font.setPointSize(10)
         self.i_name_d.setFont(font)
         self.i_name_d.setObjectName("i_name_d")
-        self.i_semester_d = QtWidgets.QLabel(self.frame)
-        self.i_semester_d.setGeometry(QtCore.QRect(170, 140, 151, 21))
+        self.i_dept_d = QtWidgets.QLabel(self.frame)
+        self.i_dept_d.setGeometry(QtCore.QRect(170, 140, 151, 21))
         font = QtGui.QFont()
         font.setFamily("Constantia")
         font.setPointSize(10)
-        self.i_semester_d.setFont(font)
-        self.i_semester_d.setObjectName("i_semester_d")
+        self.i_dept_d.setFont(font)
+        self.i_dept_d.setObjectName("i_dept_d")
         self.i_year_d = QtWidgets.QLabel(self.frame)
         self.i_year_d.setGeometry(QtCore.QRect(170, 110, 151, 21))
         font = QtGui.QFont()
@@ -950,13 +989,13 @@ class LibraryFrontend(object):
         font.setPointSize(10)
         self.i_reg_no_detail_label.setFont(font)
         self.i_reg_no_detail_label.setObjectName("i_reg_no_detail_label")
-        self.i_detail_sem_label = QtWidgets.QLabel(self.frame)
-        self.i_detail_sem_label.setGeometry(QtCore.QRect(20, 140, 141, 21))
+        self.i_detail_dept_label = QtWidgets.QLabel(self.frame)
+        self.i_detail_dept_label.setGeometry(QtCore.QRect(20, 140, 141, 21))
         font = QtGui.QFont()
         font.setFamily("Constantia")
         font.setPointSize(10)
-        self.i_detail_sem_label.setFont(font)
-        self.i_detail_sem_label.setObjectName("i_detail_sem_label")
+        self.i_detail_dept_label.setFont(font)
+        self.i_detail_dept_label.setObjectName("i_detail_dept_label")
         self.label_2 = QtWidgets.QLabel(self.frame)
         self.label_2.setGeometry(QtCore.QRect(20, 290, 141, 21))
         font = QtGui.QFont()
@@ -1284,9 +1323,7 @@ class LibraryFrontend(object):
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
         self.return_check_btn.setPalette(palette)
         self.return_check_btn.setObjectName("return_check_btn")
-        self.return_checkbox = QtWidgets.QCheckBox(self.return_tab)
-        self.return_checkbox.setGeometry(QtCore.QRect(20, 120, 731, 21))
-        self.return_checkbox.setObjectName("return_checkbox")
+
         self.return_btn = QtWidgets.QPushButton(self.return_tab)
         self.return_btn.setGeometry(QtCore.QRect(20, 480, 75, 23))
         palette = QtGui.QPalette()
@@ -4316,6 +4353,8 @@ class LibraryFrontend(object):
         self.add_students_sucess_msg.setGeometry(QtCore.QRect(390, 80, 131, 21))
         self.add_students_sucess_msg.setStyleSheet("color: rgb(85, 170, 0);")
         self.add_students_sucess_msg.setObjectName("add_students_sucess_msg")
+        self.issue_check_btn.clicked.connect(self.onclick_issue_check)
+
 
         #MainWindow.setCentralWidget(self.centralwidget)
         self.retranslateUi(MainWindow)
@@ -4335,6 +4374,10 @@ class LibraryFrontend(object):
         self.logout_btn.clicked.connect(self.logout)
         self.search_book_btn.clicked.connect(self.onclick_search_book_btn)
         self.search_student_btn.clicked.connect(self.onclick_search_student_btn)
+        self.issue_btn.clicked.connect(self.onclick_issue_btn)
+        self.search_faculty_btn.clicked.connect(self.onclick_search_faculty_btn)
+        self.return_check_btn.clicked.connect(self.onclick_return_check_btn)
+        self.return_btn.clicked.connect(self.onclick_return_btn)
         self.hide_unwanted()
 
 
@@ -4349,23 +4392,27 @@ class LibraryFrontend(object):
         self.issue_no_of_books.setItemText(2, _translate("MainWindow", "3"))
         self.issue_no_of_books.setItemText(3, _translate("MainWindow", "4"))
         self.issue_no_of_books.setItemText(4, _translate("MainWindow", "5"))
-        self.issue_bookId_label_d.setText(_translate("MainWindow", "Book id"))
+        self.issue_bookId0_label_d.setText(_translate("MainWindow", "Book id1"))
+        self.issue_bookId1_label_d.setText(_translate("MainWindow", "Book id2"))
+        self.issue_bookId2_label_d.setText(_translate("MainWindow", "Book id3"))
+        self.issue_bookId3_label_d.setText(_translate("MainWindow", "Book id4"))
+        self.issue_bookId4_label_d.setText(_translate("MainWindow", "Book id5"))
         self.i_name_d.setText(_translate("MainWindow", "dynamic_name"))
-        self.i_semester_d.setText(_translate("MainWindow", "Dynamic semester"))
+        self.i_dept_d.setText(_translate("MainWindow", "Dynamic department"))
         self.i_year_d.setText(_translate("MainWindow", "dynamic_year"))
-        self.i_detail_year_label.setText(_translate("MainWindow", "Year                                :"))
+        self.i_detail_year_label.setText(_translate("MainWindow", "Year               :"))
         self.i_detail_name_label.setText(_translate("MainWindow", "Name                             :"))
         item = self.mem_return_table.horizontalHeaderItem(0)
-        item.setText(_translate("MainWindow", "S.NO"))
-        item = self.mem_return_table.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "BOOK ID"))
-        item = self.mem_return_table.horizontalHeaderItem(2)
+        item = self.mem_return_table.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "BOOK TITLE"))
-        item = self.mem_return_table.horizontalHeaderItem(3)
+        item = self.mem_return_table.horizontalHeaderItem(2)
         item.setText(_translate("MainWindow", "DATE BORROWED"))
+        item = self.mem_return_table.horizontalHeaderItem(3)
+        item.setText(_translate("MainWindow", "DATE TO RETURN"))
         self.i_roll_no_d.setText(_translate("MainWindow", "dynamic_roll_no"))
         self.i_reg_no_detail_label.setText(_translate("MainWindow", "Register Number        :"))
-        self.i_detail_sem_label.setText(_translate("MainWindow", "Semester                       :"))
+        self.i_detail_dept_label.setText(_translate("MainWindow", "Department                 :"))
         self.label_2.setText(_translate("MainWindow", "Current Holdings "))
         self.issue_btn.setText(_translate("MainWindow", "Issue"))
         self.label_13.setText(_translate("MainWindow", "Role"))
@@ -4374,7 +4421,6 @@ class LibraryFrontend(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.issue_tab), _translate("MainWindow", "ISSUE"))
         self.return_reg_no_label.setText(_translate("MainWindow", "Roll number"))
         self.return_check_btn.setText(_translate("MainWindow", "check"))
-        self.return_checkbox.setText(_translate("MainWindow", "bookId | booktitle"))
         self.return_btn.setText(_translate("MainWindow", "return"))
         self.return_role_cbox.setItemText(0, _translate("MainWindow", "Student"))
         self.return_role_cbox.setItemText(1, _translate("MainWindow", "Faculty"))
@@ -4535,9 +4581,7 @@ class LibraryFrontend(object):
         self.add_student_filepath_display.clear()
         self.add_faculty_filepath_display.clear()
         self.frame.hide()
-        self.issue_bookId_label_d.hide()
-        self.issue_book_id_cbox_d.hide()
-        self.return_checkbox.hide()
+        self.hide_issue_book_ids()
         self.add_faculty_error_msg.hide()
         self.addstudentserror_msg.hide()
         self.add_book_error_msg.hide()
@@ -4753,5 +4797,113 @@ class LibraryFrontend(object):
             self.search_faculty_dept.show()
             self.search_faculty_table.show()
 
+
+    def display_in_issue_page(self, role, roll_no, no_of_books):
+        if role=="Faculty":
+            datas = get_faculty_burrowed_details(roll_no)
+            name, designation, dept = get_faculty_details(roll_no)
+            des = "Designation                 :"
+            self.i_detail_year_label.setText(des)
+            self.i_roll_no_d.setText(roll_no)
+            self.i_name_d.setText(name)
+            self.i_year_d.setText(designation)
+            self.i_dept_d.setText(dept)
+            self.i_dept_d.adjustSize()
+
+        else:
+            datas = get_student_burrowed_details(roll_no)
+            name, year, dept = get_stu_details(roll_no)
+            ys = "Year                                :"
+            self.i_detail_year_label.setText(ys)
+            self.i_roll_no_d.setText(roll_no)
+            self.i_name_d.setText(name)
+            self.i_year_d.setText(year)
+            self.i_dept_d.setText(dept)
+            self.i_dept_d.adjustSize()
+        self.mem_return_table.setRowCount(0)
+        self.fill_table(self.mem_return_table, datas)
+        self.frame.show()
+
+        book_ids_label = [self.issue_bookId0_label_d, self.issue_bookId1_label_d,
+                          self.issue_bookId2_label_d, self.issue_bookId3_label_d, self.issue_bookId4_label_d]
+        book_ids_cbox = [self.issue_book_id0_cbox_d, self.issue_book_id1_cbox_d, self.issue_book_id2_cbox_d,
+                         self.issue_book_id3_cbox_d, self.issue_book_id4_cbox_d]
+        for i in range(0, int(no_of_books)):
+            book_ids_label[i].show()
+            book_ids_cbox[i].show()
+
+    def onclick_issue_check(self):
+        role = self.issue_role_cbox.currentText()
+        roll_no = self.issue_register_cbox.currentText()
+        no_of_book2issue = self.issue_no_of_books.currentText()
+        self.hide_issue_book_ids()
+        self.display_in_issue_page(role, roll_no, no_of_book2issue)
+
+    def fill_table(self, table_name, datas):
+        for row_number, row_data in enumerate(datas):
+            table_name.insertRow(row_number)
+            for colum_number, data in enumerate(row_data):
+                table_name.setItem(row_number, colum_number, QtWidgets.QTableWidgetItem(str(data)))
+
+    def onclick_issue_btn(self):
+        role = self.issue_role_cbox.currentText()
+        roll_no = self.issue_register_cbox.currentText()
+        no_of_book2issue = self.issue_no_of_books.currentText()
+        book_ids_cbox = [self.issue_book_id0_cbox_d, self.issue_book_id1_cbox_d, self.issue_book_id2_cbox_d,
+                         self.issue_book_id3_cbox_d, self.issue_book_id4_cbox_d]
+
+        for i in range(int(no_of_book2issue)):
+            book_id = book_ids_cbox[i].currentText()
+            add_issued_book_to_db(role, roll_no, book_id)
+            add_2_report(role, roll_no, book_id, self.current_user)
+        self.hide_issue_book_ids()
+
+
+    def hide_issue_book_ids(self):
+        self.issue_bookId0_label_d.hide()
+        self.issue_bookId1_label_d.hide()
+        self.issue_bookId2_label_d.hide()
+        self.issue_bookId3_label_d.hide()
+        self.issue_bookId4_label_d.hide()
+        self.issue_book_id0_cbox_d.hide()
+        self.issue_book_id1_cbox_d.hide()
+        self.issue_book_id2_cbox_d.hide()
+        self.issue_book_id3_cbox_d.hide()
+        self.issue_book_id4_cbox_d.hide()
+        self.issue_book_id0_cbox_d.clear()
+        self.issue_book_id1_cbox_d.clear()
+        self.issue_book_id2_cbox_d.clear()
+        self.issue_book_id3_cbox_d.clear()
+        self.issue_book_id4_cbox_d.clear()
+
+    def display_return_check_box(self, burrowed_books_datas):
+        len_data = len(burrowed_books_datas)
+        check_box_names = []
+        for i in range(1, len_data+1):
+            self.return_checkbox = QtWidgets.QCheckBox(self.return_tab)
+            self.return_checkbox.setGeometry(QtCore.QRect(20, 80+(i*40), 750, 21))
+            self.return_checkbox.setObjectName("return_checkbox"+str(i))
+            self.return_checkbox.setText(burrowed_books_datas[i-1][0]+" | "+burrowed_books_datas[i-1][1])
+            self.return_checkbox.show()
+            check_box_names.append(self.return_checkbox)
+        return check_box_names
+
+
+    def onclick_return_check_btn(self):
+        role = self.return_role_cbox.currentText()
+        roll_number = self.return_reg_no_cbox.currentText()
+        burrowed_books = get_burrowed_books(role, roll_number)
+        self.check_boxes_names = self.display_return_check_box(burrowed_books)
+
+
+    def onclick_return_btn(self):
+        roll_number = self.return_reg_no_cbox.currentText()
+        role = self.return_role_cbox.currentText()
+        for check_box in self.check_boxes_names:
+            if check_box.isChecked():
+                book_id, title  = check_box.text().split(" | ")
+                return_book(role, roll_number, book_id, self.current_user)
+            check_box.hide()
+        self.check_boxes_names = None
 
 

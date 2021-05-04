@@ -77,47 +77,47 @@ def add_book_2_library(book_id, type, title, author, publisher):
         conn.commit()
 
 
-def add_issued_book_to_db(roll_no, book_id, validation_day=14):
+def add_issued_book_to_db(role, roll_no, book_id, validation_day=14):
     validation_date = (datetime.date.today() + datetime.timedelta(days=validation_day)).strftime("%d/%m/%Y")
-    cursor.execute("INSERT INTO books_burrowed VALUES ('{}', '{}', '{}')".format(roll_no, book_id, validation_date))
+    cursor.execute("INSERT INTO books_burrowed VALUES ('{}', '{}', '{}', '{}')".format(role, roll_no, book_id, validation_date))
     cursor.execute("SELECT title FROM book_details WHERE book_id='{}'".format(book_id))
     burrowed_book_title = cursor.fetchall()[0][0]
     cursor.execute(
-        "UPDATE available_books SET numbers = (SELECT numbers FROM available_books where titles='{}')-1".format(
-            burrowed_book_title))
+        "UPDATE available_books SET numbers = (SELECT numbers FROM available_books where titles='{}')-1 where "
+        "titles='{}'".format(burrowed_book_title, burrowed_book_title))
     conn.commit()
 
 
-def add_2_report(roll_no, book_id, curr_librarian, validation_day=14):
+
+def add_2_report(ty, roll_no, book_id, curr_librarian, validation_day=14):
     today_date = datetime.date.today().strftime("%d/%m/%Y")
     curr_time = datetime.datetime.now().strftime("%H:%M:%S")
     valid_date = (datetime.date.today() + datetime.timedelta(days=validation_day)).strftime("%d/%m/%Y")
     cursor.execute("SELECT title, author FROM book_details WHERE book_id='{}'".format(book_id))
     title, author = cursor.fetchall()[0]
-    cursor.execute("INSERT INTO FullReport "
-                   "(rollno, book_id, title_of_book, author_of_book, given_by, given_date, given_time, validate_date)"
-                   "VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}');".format(roll_no, book_id, title, author,
+    cursor.execute("INSERT INTO FullReport (type, rollno, book_id, title_of_book, Author_of_book, given_by, given_date, given_time, validate_date)"
+                   "VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}');".format(ty, roll_no, book_id, title, author,
                                                                                      curr_librarian, today_date,
                                                                                      curr_time, valid_date))
     conn.commit()
 
 
-def return_book(roll_no, book_id, curr_librarian):
+def return_book(ty, roll_no, book_id, curr_librarian):
     today_date = datetime.date.today().strftime("%d/%m/%Y")
     curr_time = datetime.datetime.now().strftime("%H:%M:%S")
     cursor.execute("SELECT title, author FROM book_details WHERE book_id='{}'".format(book_id))
     title, author = cursor.fetchall()[0]
     cursor.execute("UPDATE FullReport SET "
                    "returned_to='{}', return_date='{}', return_time='{}', is_book_returned='{}' WHERE "
-                   "rollno='{}' AND book_id='{}' AND is_book_returned='{}';".format(curr_librarian,
+                   "type='{}' AND rollno='{}' AND book_id='{}' AND is_book_returned='no';".format(curr_librarian,
                                                                                     today_date,
                                                                                     curr_time,
-                                                                                    "yes", roll_no, book_id, "no"))
+                                                                                    "yes", ty, roll_no, book_id))
     conn.commit()
     cursor.execute("DELETE FROM books_burrowed WHERE rollno='{}' AND bookid='{}'".format(roll_no, book_id))
     cursor.execute(
-        "UPDATE available_books SET numbers = (SELECT numbers FROM available_books where titles='{}')+1".format(
-            title))
+        "UPDATE available_books SET numbers = (SELECT numbers FROM available_books where titles='{}')+1 WHERE titles='{}'".format(
+            title, title))
     conn.commit()
 
 
@@ -179,7 +179,7 @@ def add_by_excel(filepath, types=None):
 
 
 def get_available_book_by_title(title_substr):
-    cursor.execute("SELECT titles FROM available_books")
+    cursor.execute("SELECT titles FROM available_books WHERE numbers > 0;")
     titles = np.array(cursor.fetchall()).flatten()
     ls = []
     for title in titles:
@@ -188,17 +188,24 @@ def get_available_book_by_title(title_substr):
             ls += np.array(cursor.fetchall()).tolist()
     return ls
 
+
 def get_available_book_by_type(typee):
-    cursor.execute("SELECT book_id, title, author, type FROM book_details where type='{}'".format(typee))
-    return np.array(cursor.fetchall()).tolist()
+    cursor.execute("SELECT titles FROM available_books WHERE numbers > 0;")
+    titles = np.array(cursor.fetchall()).flatten()
+    ls = []
+    for title in titles:
+        cursor.execute("SELECT book_id, title, author, type FROM book_details where title='{}' AND type='{}'".format(title, typee))
+        ls += np.array(cursor.fetchall()).tolist()
+    return ls
 
 
 def get_student_burrowed_details(reg_no):
-    cursor.execute("SELECT book_id, title_of_book, given_date, return_date WHERE rollno={} AND is_returned='no'".format(reg_no))
+    cursor.execute("SELECT book_id, title_of_book, given_date, validate_date FROM FullReport WHERE rollno='{}' AND is_book_returned='no' AND type='Student'".format(reg_no))
     return np.array(cursor.fetchall()).tolist()
 
+
 def get_faculty_burrowed_details(roll_no):
-    cursor.execute("SELECT book_id, title_of_book, given_date, return_date WHERE rollno={} AND is_returned='no' AND type='Faculty'".format(roll_no))
+    cursor.execute("SELECT book_id, title_of_book, given_date, validate_date FROM FullReport WHERE rollno='{}' AND is_book_returned='no' AND type='Faculty'".format(roll_no))
     return np.array(cursor.fetchall()).tolist()
 
 def get_stu_details(roll_no):
@@ -207,8 +214,13 @@ def get_stu_details(roll_no):
 
 
 def get_faculty_details(roll_no):
-    cursor.execute("SELECT name, designation, department FROM faculty_details WHERE roll_number='{}".format(roll_no))
+    cursor.execute("SELECT name, designation, department FROM faculty_details WHERE roll_number='{}'".format(roll_no))
     return np.array(cursor.fetchall()).squeeze().tolist()
+
+def get_burrowed_books(role, roll_no):
+    cursor.execute("SELECT book_id, title_of_book FROM FullReport WHERE rollno='{}' AND is_book_returned='no' AND type='{}'".format(roll_no, role))
+    return np.array(cursor.fetchall()).tolist()
+
 
 def close_db():
     conn.close()
