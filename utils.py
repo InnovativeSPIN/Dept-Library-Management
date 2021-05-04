@@ -90,9 +90,9 @@ def add_issued_book_to_db(role, roll_no, book_id, validation_day=14):
 
 
 def add_2_report(ty, roll_no, book_id, curr_librarian, validation_day=14):
-    today_date = datetime.date.today().strftime("%d/%m/%Y")
+    today_date = datetime.date.today().strftime("%d-%m-%Y")
     curr_time = datetime.datetime.now().strftime("%H:%M:%S")
-    valid_date = (datetime.date.today() + datetime.timedelta(days=validation_day)).strftime("%d/%m/%Y")
+    valid_date = (datetime.date.today() + datetime.timedelta(days=validation_day)).strftime("%d-%m-%Y")
     cursor.execute("SELECT title, author FROM book_details WHERE book_id='{}'".format(book_id))
     title, author = cursor.fetchall()[0]
     cursor.execute("INSERT INTO FullReport (type, rollno, book_id, title_of_book, Author_of_book, given_by, given_date, given_time, validate_date)"
@@ -221,6 +221,20 @@ def get_burrowed_books(role, roll_no):
     cursor.execute("SELECT book_id, title_of_book FROM FullReport WHERE rollno='{}' AND is_book_returned='no' AND type='{}'".format(roll_no, role))
     return np.array(cursor.fetchall()).tolist()
 
+def get_full_report():
+    cursor.execute("SELECT type, rollno, book_id, title_of_book, given_by, given_date, given_time, validate_date, "
+                   "returned_to, return_date, return_time FROM FullReport")
+    return np.array(cursor.fetchall()).tolist()
+
+def get_report_by(col_name, name, role="Student"):
+    cursor.execute("SELECT type, rollno, book_id, title_of_book, given_by, given_date, given_time, validate_date, "
+                   "returned_to, return_date, return_time FROM FullReport WHERE {}='{}' AND type='{}'".format(col_name, name, role))
+    return np.array(cursor.fetchall()).tolist()
+
+def get_report_by_date(from_date, to_date):
+    cursor.execute("SELECT type, rollno, book_id, title_of_book, given_by, given_date, given_time, validate_date, "
+                   "returned_to, return_date, return_time FROM FullReport WHERE  given_date >= '{}' AND given_date<='{}'".format(from_date, to_date))
+    return np.array(cursor.fetchall()).tolist()
 
 def close_db():
     conn.close()
