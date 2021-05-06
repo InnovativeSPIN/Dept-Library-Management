@@ -4475,7 +4475,7 @@ class LibraryFrontend(object):
         item.setText(_translate("MainWindow", "TYPE"))
         self.label_27.setText(_translate("MainWindow", "(or)"))
         self.label_29.setText(_translate("MainWindow", "(or)"))
-        self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.tab), _translate("MainWindow", "book"))
+        self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.tab), _translate("MainWindow", "BOOK"))
         self.label_39.setText(_translate("MainWindow", "Register number"))
         self.search_student_btn.setText(_translate("MainWindow", "search"))
         self.search_stu_year_d.setText(_translate("MainWindow", "dynamic_year"))
@@ -4493,7 +4493,7 @@ class LibraryFrontend(object):
         item = self.search_student_table.horizontalHeaderItem(3)
         item.setText(_translate("MainWindow", "DATE TO RETURN"))
         self.label_45.setText(_translate("MainWindow", "Current holdings"))
-        self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.tab_2), _translate("MainWindow", "students"))
+        self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.tab_2), _translate("MainWindow", "STUDENTS"))
         self.search_facuty_name_d.setText(_translate("MainWindow", "dynamic_name"))
         self.search_faculty_btn.setText(_translate("MainWindow", "search"))
         self.label_40.setText(_translate("MainWindow", "Roll no"))
@@ -4510,7 +4510,7 @@ class LibraryFrontend(object):
         self.search_faculty_dept.setText(_translate("MainWindow", "Dynamic dept"))
         self.label_50.setText(_translate("MainWindow", "Name                  :"))
         self.label_51.setText(_translate("MainWindow", "Designation      :"))
-        self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.tab_3), _translate("MainWindow", "faculty"))
+        self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.tab_3), _translate("MainWindow", "FACULTY"))
         self.report_register_no_label.setText(_translate("MainWindow", "Roll Number"))
         self.report_generate_btn.setText(_translate("MainWindow", "generate"))
         self.label_3.setText(_translate("MainWindow", "to"))
@@ -4522,11 +4522,11 @@ class LibraryFrontend(object):
         self.report_typecbox.setItemText(1, _translate("MainWindow", "Faculty"))
         self.label.setText(_translate("MainWindow", "type"))
         self.label_14.setText(_translate("MainWindow", "( or )"))
-        self.TRANSACTION_btn.setText(_translate("MainWindow", "TRANSACTION"))
-        self.ADDING_btn.setText(_translate("MainWindow", "ADDING"))
+        self.TRANSACTION_btn.setText(_translate("MainWindow", "ISSUE / RETURN"))
+        self.ADDING_btn.setText(_translate("MainWindow", "DATABASES"))
         self.REORT_btn.setText(_translate("MainWindow", "REPORT"))
         self.SEARCH_btn.setText(_translate("MainWindow", "SEARCH"))
-        self.logout_btn.setText(_translate("MainWindow", "LogOut"))
+        self.logout_btn.setText(_translate("MainWindow", "Logout"))
         self.current_username_label.setText(_translate("MainWindow", "USERNAME :    "+self.current_user))
         self.time_label.setText(_translate("MainWindow", "Time : HH:MM:SS"))
         self.add_book_type_cbox.setItemText(0, _translate("MainWindow", "Local Author"))
@@ -4799,15 +4799,15 @@ class LibraryFrontend(object):
         for i in range(0, int(no_of_books)):
             book_ids_label[i].show()
             book_ids_cbox[i].show()
+            book_ids_cbox[i].addItems(get_available_book_ids())
 
     def onclick_issue_check(self):
         role = self.issue_role_cbox.currentText()
         roll_no = self.issue_register_cbox.text()
         no_of_book2issue = self.issue_no_of_books.currentText()
-        if roll_no!="":
-            if roll_no in get_all_roll_no():
-                self.hide_issue_book_ids()
-                self.display_in_issue_page(role, roll_no, no_of_book2issue)
+        if roll_no in get_all_roll_no():
+            self.hide_issue_book_ids()
+            self.display_in_issue_page(role, roll_no, no_of_book2issue)
 
     def fill_table(self, table_name, datas):
         for row_number, row_data in enumerate(datas):

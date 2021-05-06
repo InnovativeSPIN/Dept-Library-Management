@@ -186,9 +186,17 @@ def get_available_book_by_title(title_substr):
     for title in titles:
         if title_substr.lower() in title.lower().split():
             cursor.execute("SELECT book_id, title, author, type FROM book_details where title='{}'".format(title))
-            ls += np.array(cursor.fetchall()).tolist()
+            ls += np.array(cursor.fetchall()).flatten().tolist()
     return ls
 
+def get_available_book_ids():
+    cursor.execute("SELECT titles FROM available_books WHERE numbers > 0;")
+    titles = np.array(cursor.fetchall()).flatten()
+    ls = []
+    for title in titles:
+        cursor.execute("SELECT book_id FROM book_details where title='{}'".format(title))
+        ls += np.array(cursor.fetchall()).flatten().tolist()
+    return ls
 
 def get_available_book_by_type(typee):
     cursor.execute("SELECT titles FROM available_books WHERE numbers > 0;")
@@ -216,9 +224,9 @@ def get_stu_details(roll_no):
 
 def get_all_roll_no():
     cursor.execute("SELECT rollno FROM student_details")
-    xx = np.array(cursor.fetchall()).squeeze().tolist()
+    xx = np.array(cursor.fetchall()).flatten().tolist()
     cursor.execute("SELECT roll_number FROM faculty_details")
-    yy = np.array(cursor.fetchall()).squeeze().tolist()
+    yy = np.array(cursor.fetchall()).flatten().tolist()
     return xx+yy
 
 
@@ -240,10 +248,10 @@ def get_report_by(col_name, name, role="Student"):
                    "returned_to, return_date, return_time FROM FullReport WHERE {}='{}' AND type='{}'".format(col_name, name, role))
     return np.array(cursor.fetchall()).tolist()
 
-def get_report_by_date(from_date, to_date):
+def get_report_by_date(role, from_date, to_date):
     cursor.execute("SELECT type, rollno, book_id, title_of_book, given_by, given_date, given_time, validate_date, "
-                   "returned_to, return_date, return_time FROM FullReport WHERE  given_date >= '{}' AND given_date<='{}'".format(from_date, to_date))
-    return np.array(cursor.fetchall()).tolist()
+                   "returned_to, return_date, return_time FROM FullReport WHERE  given_date >= '{}' AND given_date<='{}' AND type='{}'".format(from_date, to_date, role))
+    return np.array(cursor.fetchall()).flatten().tolist()
 
 def close_db():
     conn.close()
