@@ -179,7 +179,7 @@ class LoginFrontend(object):
         font.setWeight(75)
         self.tabWidget.setFont(font)
         self.tabWidget.setTabPosition(QtWidgets.QTabWidget.North)
-        self.tabWidget.setTabShape(QtWidgets.QTabWidget.Triangular)
+        self.tabWidget.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.tabWidget.setObjectName("tabWidget")
         self.login = QtWidgets.QWidget()
         self.login.setObjectName("login")
@@ -449,7 +449,6 @@ class LoginFrontend(object):
             self.dialog.close()
             self.library_frontend.setupUi(self.dialog, username)
             self.dialog.show()
-
         else:
             self.lwarn.show()
 
@@ -536,6 +535,11 @@ class LibraryFrontend(object):
         font = QtGui.QFont()
         font.setFamily("Constantia")
         font.setPointSize(10)
+
+        m_btn_font = QtGui.QFont()
+        m_btn_font.setFamily("Engravers MT")
+        m_btn_font.setPointSize(12)
+
         MainWindow.setFont(font)
 
         self.timer = QTimer()
@@ -3190,13 +3194,13 @@ class LibraryFrontend(object):
         self.report_register_cbox.setGeometry(QtCore.QRect(290, 20, 151, 31))
         self.report_register_cbox.setObjectName("report_register_cbox")
         self.report_from_date = QtWidgets.QDateEdit(self.report_page)
-        self.report_from_date.setGeometry(QtCore.QRect(650, 20, 110, 31))
+        self.report_from_date.setGeometry(QtCore.QRect(540, 20, 110, 31))
         self.report_from_date.setObjectName("report_from_date")
         self.report_2_date = QtWidgets.QDateEdit(self.report_page)
-        self.report_2_date.setGeometry(QtCore.QRect(790, 20, 110, 31))
+        self.report_2_date.setGeometry(QtCore.QRect(690, 20, 110, 31))
         self.report_2_date.setObjectName("report_2_date")
         self.report_generate_btn = QtWidgets.QPushButton(self.report_page)
-        self.report_generate_btn.setGeometry(QtCore.QRect(950, 20, 110, 31))
+        self.report_generate_btn.setGeometry(QtCore.QRect(820, 20, 110, 31))
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -3345,16 +3349,13 @@ class LibraryFrontend(object):
         self.report_generate_btn.setPalette(palette)
         self.report_generate_btn.setObjectName("report_generate_btn")
         self.label_3 = QtWidgets.QLabel(self.report_page)
-        self.label_3.setGeometry(QtCore.QRect(770, 20, 21, 31))
+        self.label_3.setGeometry(QtCore.QRect(670, 20, 21, 31))
         self.label_3.setObjectName("label_3")
         self.label_4 = QtWidgets.QLabel(self.report_page)
-        self.label_4.setGeometry(QtCore.QRect(610, 20, 31, 31))
+        self.label_4.setGeometry(QtCore.QRect(500, 20, 31, 31))
         self.label_4.setObjectName("label_4")
-        self.label_5 = QtWidgets.QLabel(self.report_page)
-        self.label_5.setGeometry(QtCore.QRect(450, 20, 31, 31))
-        self.label_5.setObjectName("label_5")
         self.full_report_btn = QtWidgets.QPushButton(self.report_page)
-        self.full_report_btn.setGeometry(QtCore.QRect(20, 60, 91, 31))
+        self.full_report_btn.setGeometry(QtCore.QRect(1000, 20, 110, 31))
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -3513,12 +3514,10 @@ class LibraryFrontend(object):
         self.label = QtWidgets.QLabel(self.report_page)
         self.label.setGeometry(QtCore.QRect(20, 20, 41, 31))
         self.label.setObjectName("label")
-        self.label_14 = QtWidgets.QLabel(self.report_page)
-        self.label_14.setGeometry(QtCore.QRect(170, 20, 31, 31))
-        self.label_14.setObjectName("label_14")
         self.stackedWidget.addWidget(self.report_page)
         self.TRANSACTION_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.TRANSACTION_btn.setGeometry(QtCore.QRect(1130, 170, 231, 71))
+        self.TRANSACTION_btn.setFont(m_btn_font)
+        self.TRANSACTION_btn.setGeometry(QtCore.QRect(1130, 180, 231, 71))
         self.TRANSACTION_btn.clicked.connect(self.onclick_transaction_btn)
 
         palette = QtGui.QPalette()
@@ -3671,7 +3670,8 @@ class LibraryFrontend(object):
         self.TRANSACTION_btn.setFlat(False)
         self.TRANSACTION_btn.setObjectName("TRANSACTION_btn")
         self.ADDING_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.ADDING_btn.setGeometry(QtCore.QRect(1130, 240, 231, 71))
+        self.ADDING_btn.setFont(m_btn_font)
+        self.ADDING_btn.setGeometry(QtCore.QRect(1130, 260, 231, 71))
         self.ADDING_btn.clicked.connect(self.onclick_adding_btn)
 
         palette = QtGui.QPalette()
@@ -3824,7 +3824,8 @@ class LibraryFrontend(object):
         self.ADDING_btn.setFlat(False)
         self.ADDING_btn.setObjectName("ADDING_btn")
         self.REORT_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.REORT_btn.setGeometry(QtCore.QRect(1130, 310, 231, 71))
+        self.REORT_btn.setFont(m_btn_font)
+        self.REORT_btn.setGeometry(QtCore.QRect(1130, 340, 231, 71))
         self.REORT_btn.clicked.connect(self.onclick_report_btn)
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
@@ -3976,6 +3977,7 @@ class LibraryFrontend(object):
         self.REORT_btn.setFlat(False)
         self.REORT_btn.setObjectName("REORT_btn")
         self.SEARCH_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.SEARCH_btn.setFont(m_btn_font)
         self.SEARCH_btn.setGeometry(QtCore.QRect(1130, 100, 231, 71))
         self.SEARCH_btn.clicked.connect(self.onclick_search_button)
         palette = QtGui.QPalette()
@@ -4293,8 +4295,8 @@ class LibraryFrontend(object):
         self.title_img_label.setScaledContents(True)
         self.title_img_label.setObjectName("title_img_label")
         t_font = QtGui.QFont()
-        t_font.setFamily("Constantia")
-        t_font.setPointSize(14)
+        t_font.setFamily("Engravers MT")
+        t_font.setPointSize(12)
         self.time_label = QtWidgets.QLabel(self.centralwidget)
         self.time_label.setGeometry(QtCore.QRect(1130, 410, 231, 31))
         self.time_label.setObjectName("time_label")
@@ -4404,14 +4406,14 @@ class LibraryFrontend(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.issue_tab), _translate("MainWindow", "ISSUE"))
         self.return_reg_no_label.setText(_translate("MainWindow", "Roll number"))
         self.return_check_btn.setText(_translate("MainWindow", "check"))
-        self.return_btn.setText(_translate("MainWindow", "return"))
+        self.return_btn.setText(_translate("MainWindow", "Return"))
         self.return_role_cbox.setItemText(0, _translate("MainWindow", "Student"))
         self.return_role_cbox.setItemText(1, _translate("MainWindow", "Faculty"))
         self.return_role.setText(_translate("MainWindow", "Role"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.return_tab), _translate("MainWindow", "RETURN"))
         self.label_7.setText(_translate("MainWindow", "Book title"))
         self.label_8.setText(_translate("MainWindow", "Author"))
-        self.label_9.setText(_translate("MainWindow", "Type"))
+        self.label_9.setText(_translate("MainWindow", "Role"))
         self.label_10.setText(_translate("MainWindow", "Publisher"))
         self.add_book_botton.setText(_translate("MainWindow", "ADD"))
         self.label_11.setText(_translate("MainWindow", "Add a single book to Library"))
@@ -4444,7 +4446,7 @@ class LibraryFrontend(object):
         self.add_student_semester_cbox.setItemText(7, _translate("MainWindow", "8"))
         self.add_students_dept_cbox.setItemText(0, _translate("MainWindow", "Computer Science and Engineering"))
         self.add_students_dept_cbox.setItemText(1, _translate("MainWindow", "Mechanical Engieneering"))
-        self.add_students_dept_cbox.setItemText(2, _translate("MainWindow", "Electrical and Ccommunication Enguneering"))
+        self.add_students_dept_cbox.setItemText(2, _translate("MainWindow", "Electrical and Ccommunication Engineering"))
         self.add_students_dept_cbox.setItemText(3, _translate("MainWindow", "Civial Engineering"))
         self.add_students_dept_cbox.setItemText(4, _translate("MainWindow", "Electrical and Electronics Engineeing"))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.add_students_tab), _translate("MainWindow", "ADD STUDENTS"))
@@ -4454,7 +4456,6 @@ class LibraryFrontend(object):
         self.add_faculty_designation_cbox.setItemText(0, _translate("MainWindow", "Head of Department"))
         self.add_faculty_designation_cbox.setItemText(1, _translate("MainWindow", "professor"))
         self.add_faculty_designation_cbox.setItemText(2, _translate("MainWindow", "Assistant Professor"))
-        self.add_faculty_designation_cbox.setItemText(3, _translate("MainWindow", "New Item"))
         self.label_26.setText(_translate("MainWindow", "Department"))
         self.add_faculty_dept_cbox.setItemText(0, _translate("MainWindow", "Computer Science and Engineering"))
         self.add_faculty_dept_cbox.setItemText(1, _translate("MainWindow", "Mechanical Engineering"))
@@ -4472,7 +4473,7 @@ class LibraryFrontend(object):
         self.label_38.setText(_translate("MainWindow", "book type"))
         self.search_book_type_cbox.setItemText(0, _translate("MainWindow", "Local Author"))
         self.search_book_type_cbox.setItemText(1, _translate("MainWindow", "Foreign Author"))
-        self.search_book_btn.setText(_translate("MainWindow", "search"))
+        self.search_book_btn.setText(_translate("MainWindow", "Search"))
         item = self.search_book_table.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "BOOK ID"))
         item = self.search_book_table.horizontalHeaderItem(1)
@@ -4480,7 +4481,7 @@ class LibraryFrontend(object):
         item = self.search_book_table.horizontalHeaderItem(2)
         item.setText(_translate("MainWindow", "AUTHOR"))
         item = self.search_book_table.horizontalHeaderItem(3)
-        item.setText(_translate("MainWindow", "TYPE"))
+        item.setText(_translate("MainWindow", "ROLE"))
         self.label_27.setText(_translate("MainWindow", "(or)"))
         self.label_29.setText(_translate("MainWindow", "(or)"))
         self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.tab), _translate("MainWindow", "BOOK"))
@@ -4520,16 +4521,14 @@ class LibraryFrontend(object):
         self.label_51.setText(_translate("MainWindow", "Designation      :"))
         self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.tab_3), _translate("MainWindow", "FACULTY"))
         self.report_register_no_label.setText(_translate("MainWindow", "Roll Number"))
-        self.report_generate_btn.setText(_translate("MainWindow", "generate"))
-        self.label_3.setText(_translate("MainWindow", "to"))
+        self.report_generate_btn.setText(_translate("MainWindow", "Generate"))
+        self.label_3.setText(_translate("MainWindow", "To"))
         self.label_4.setText(_translate("MainWindow", "From"))
-        self.label_5.setText(_translate("MainWindow", "( or )"))
 
-        self.full_report_btn.setText(_translate("MainWindow", "Full report"))
+        self.full_report_btn.setText(_translate("MainWindow", "Master Report"))
         self.report_typecbox.setItemText(0, _translate("MainWindow", "Student"))
         self.report_typecbox.setItemText(1, _translate("MainWindow", "Faculty"))
-        self.label.setText(_translate("MainWindow", "type"))
-        self.label_14.setText(_translate("MainWindow", "( or )"))
+        self.label.setText(_translate("MainWindow", "Role"))
         self.TRANSACTION_btn.setText(_translate("MainWindow", "ISSUE / RETURN"))
         self.ADDING_btn.setText(_translate("MainWindow", "DATABASES"))
         self.REORT_btn.setText(_translate("MainWindow", "REPORT"))
@@ -4582,7 +4581,7 @@ class LibraryFrontend(object):
     def showtime(self):
         current_time = QTime.currentTime()
         current_time_str = current_time.toString('hh : mm : ss  AP')
-        self.time_label.setText("Time  :  "+current_time_str)
+        self.time_label.setText("Time     :  "+current_time_str)
 
     def onclick_adding_btn(self):
         self.hide_unwanted()
@@ -4680,7 +4679,7 @@ class LibraryFrontend(object):
                 if not add_by_excel(file_path, types="book"):
                     self.add_book_error_msg.show()
                     return
-        self.add_book_success_msg.show()
+            self.add_book_success_msg.show()
 
 
     def onclick_students_browse_xcel(self):
@@ -4814,8 +4813,9 @@ class LibraryFrontend(object):
         role = self.issue_role_cbox.currentText()
         roll_no = self.issue_register_cbox.text()
         no_of_book2issue = self.issue_no_of_books.currentText()
+        self.hide_issue_book_ids()
+
         if roll_no in get_all_roll_no():
-            self.hide_issue_book_ids()
             self.display_in_issue_page(role, roll_no, no_of_book2issue)
 
     def fill_table(self, table_name, datas):
@@ -4890,11 +4890,14 @@ class LibraryFrontend(object):
 
     def onclick_full_report_btn(self):
         pdf_path = self.get_file_path()
-        full_data = get_full_report()
-        full_data.insert(0, self.col_names)
-        self.save_pdf_report(pdf_path, full_data)
-        self.fill_table(self.reporttablewidget, full_data[1:])
-        self.reporttablewidget.show()
+        try:
+            full_data = get_full_report()
+            full_data.insert(0, self.col_names)
+            self.save_pdf_report(pdf_path, full_data)
+            self.fill_table(self.reporttablewidget, full_data[1:])
+            self.reporttablewidget.show()
+        except:
+            pass
 
 
     def generate_report(self):
@@ -4909,9 +4912,12 @@ class LibraryFrontend(object):
             datas = get_report_by_date(role, from_date, to_date)
         self.fill_table(self.reporttablewidget, datas)
         datas.insert(0, self.col_names)
-        self.save_pdf_report(self.get_file_path(), datas)
-        self.reporttablewidget.show()
-
+        fp = self.get_file_path()
+        try:
+            self.save_pdf_report(fp, datas)
+            self.reporttablewidget.show()
+        except:
+            pass
 
     def get_file_path(self):
         file_name =  QFileDialog.getSaveFileName(filter="PDF Files(*.pdf)")
