@@ -4396,7 +4396,7 @@ class LibraryFrontend(object):
         self.i_roll_no_d.setText(_translate("MainWindow", "dynamic_roll_no"))
         self.i_reg_no_detail_label.setText(_translate("MainWindow", "Register Number        :"))
         self.i_detail_dept_label.setText(_translate("MainWindow", "Department                 :"))
-        self.label_2.setText(_translate("MainWindow", "Current Holdings "))
+        self.label_2.setText(_translate("MainWindow", "Current burrowed "))
         self.issue_btn.setText(_translate("MainWindow", "Issue"))
         self.label_13.setText(_translate("MainWindow", "Role"))
         self.issue_role_cbox.setItemText(0, _translate("MainWindow", "Student"))
@@ -4500,7 +4500,7 @@ class LibraryFrontend(object):
         item.setText(_translate("MainWindow", "DATE BORROWED"))
         item = self.search_student_table.horizontalHeaderItem(3)
         item.setText(_translate("MainWindow", "DATE TO RETURN"))
-        self.label_45.setText(_translate("MainWindow", "Current holdings"))
+        self.label_45.setText(_translate("MainWindow", "Current burrowed"))
         self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.tab_2), _translate("MainWindow", "STUDENTS"))
         self.search_facuty_name_d.setText(_translate("MainWindow", "dynamic_name"))
         self.search_faculty_btn.setText(_translate("MainWindow", "search"))
@@ -4724,6 +4724,7 @@ class LibraryFrontend(object):
             datas = get_available_book_by_title(book_title)
         else:
             datas = get_available_book_by_type(book_type)
+
         for row_number, row_data in enumerate(datas):
             self.search_book_table.insertRow(row_number)
             for colum_number , data in enumerate(row_data):

@@ -70,10 +70,10 @@ def add_book_2_library(book_id, type, title, author, publisher):
     if title in availe_books_title:
         cursor.execute(
             "UPDATE available_books SET numbers = (SELECT numbers FROM available_books where titles='{}')+1 WHERE titles='{}'".format(
-                title, title))
+                title.lower(), title.lower()))
         conn.commit()
     else:
-        cursor.execute("INSERT INTO available_books values ('{}', {})".format(title, 1))
+        cursor.execute("INSERT INTO available_books values ('{}', {})".format(title.lower(), 1))
         conn.commit()
 
 
@@ -117,18 +117,18 @@ def return_book(ty, roll_no, book_id, curr_librarian):
     cursor.execute("DELETE FROM books_burrowed WHERE rollno='{}' AND bookid='{}'".format(roll_no, book_id))
     cursor.execute(
         "UPDATE available_books SET numbers = (SELECT numbers FROM available_books where titles='{}')+1 WHERE titles='{}'".format(
-            title, title))
+            title.lower(), title.lower()))
     conn.commit()
 
 
 def add_student_2_db(roll_no, stu_name, year, stu_semester, stu_dept):
-    cursor.execute("INSERT OR IGNORE INTO student_details VALUES ('{}', '{}', '{}', '{}', '{}')".format(roll_no, stu_name, year,
+    cursor.execute("INSERT OR IGNORE INTO student_details VALUES ('{}', '{}', '{}', '{}', '{}')".format(roll_no.lower(), stu_name, year,
                                                                                               stu_semester, stu_dept))
     conn.commit()
 
 
 def add_faculty_2_db(roll_no, name, designation, department):
-    cursor.execute("INSERT OR IGNORE INTO faculty_details VALUES ('{}', '{}', '{}', '{}')".format(roll_no, name,
+    cursor.execute("INSERT OR IGNORE INTO faculty_details VALUES ('{}', '{}', '{}', '{}')".format(roll_no.lower(), name,
                                                                                         designation, department))
     conn.commit()
 
@@ -153,7 +153,7 @@ def add_by_excel(filepath, types=None):
                 row = (data.iloc[i]).values
                 gen_id = gen_book_id_for_new_book()
                 book_ids.append(gen_id)
-                add_book_2_library(book_id=gen_id, type=row[1], title=row[0],
+                add_book_2_library(book_id=gen_id, type=row[1], title=row[0].lower(),
                                    author=row[2], publisher=row[-1])
 
             data["book_id"] = np.array(book_ids)
@@ -185,16 +185,17 @@ def get_available_book_by_title(title_substr):
     ls = []
     for title in titles:
         if title_substr.lower() in title.lower().split():
-            cursor.execute("SELECT book_id, title, author, type FROM book_details where title='{}'".format(title))
-            ls += np.array(cursor.fetchall()).flatten().tolist()
+            cursor.execute("SELECT book_id, title, author, type FROM book_details where title='{}'".format(title.lower()))
+            ls += np.array(cursor.fetchall()).tolist()
     return ls
+
 
 def get_available_book_ids():
     cursor.execute("SELECT titles FROM available_books WHERE numbers > 0;")
     titles = np.array(cursor.fetchall()).flatten()
     ls = []
     for title in titles:
-        cursor.execute("SELECT book_id FROM book_details where title='{}'".format(title))
+        cursor.execute("SELECT book_id FROM book_details where title='{}'".format(title.lower()))
         ls += np.array(cursor.fetchall()).flatten().tolist()
     return ls
 
@@ -203,7 +204,7 @@ def get_available_book_by_type(typee):
     titles = np.array(cursor.fetchall()).flatten()
     ls = []
     for title in titles:
-        cursor.execute("SELECT book_id, title, author, type FROM book_details where title='{}' AND type='{}'".format(title, typee))
+        cursor.execute("SELECT book_id, title, author, type FROM book_details where title='{}' AND type='{}'".format(title.lower(), typee))
         ls += np.array(cursor.fetchall()).tolist()
     return ls
 
