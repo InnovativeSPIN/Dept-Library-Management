@@ -1160,6 +1160,14 @@ class LibraryFrontend(object):
         self.label_13 = QtWidgets.QLabel(self.issue_tab)
         self.label_13.setGeometry(QtCore.QRect(20, 50, 111, 21))
         self.label_13.setObjectName("label_13")
+        self.issue_msg = QtWidgets.QLabel(self.issue_tab)
+        self.issue_msg.setGeometry(QtCore.QRect(110, 510, 200, 21))
+        self.issue_msg.setObjectName("issue_msg")
+        self.issue_msg.setStyleSheet("color: rgb(0, 150, 0);")
+        fontt = QtGui.QFont()
+        fontt.setFamily("Constantia")
+        fontt.setPointSize(14)
+        self.issue_msg.setFont(fontt)
         self.issue_role_cbox = QtWidgets.QComboBox(self.issue_tab)
         self.issue_role_cbox.setGeometry(QtCore.QRect(140, 50, 131, 22))
         self.issue_role_cbox.setObjectName("issue_role_cbox")
@@ -1481,6 +1489,11 @@ class LibraryFrontend(object):
         self.return_role = QtWidgets.QLabel(self.return_tab)
         self.return_role.setGeometry(QtCore.QRect(20, 20, 91, 21))
         self.return_role.setObjectName("return_role")
+        self.return_msg = QtWidgets.QLabel(self.return_tab)
+        self.return_msg.setGeometry(QtCore.QRect(110, 480, 200, 21))
+        self.return_msg.setObjectName("return_msg")
+        self.return_msg.setStyleSheet("color: rgb(0, 150, 0);")
+        self.return_msg.setFont(fontt)
         self.tabWidget.addTab(self.return_tab, "")
         self.stackedWidget.addWidget(self.transaction_page)
         self.adding_page = QtWidgets.QWidget()
@@ -3517,7 +3530,8 @@ class LibraryFrontend(object):
         self.stackedWidget.addWidget(self.report_page)
         self.TRANSACTION_btn = QtWidgets.QPushButton(self.centralwidget)
         self.TRANSACTION_btn.setFont(m_btn_font)
-        self.TRANSACTION_btn.setGeometry(QtCore.QRect(1130, 180, 231, 71))
+        self.TRANSACTION_btn.setStyleSheet(u"background-color: rgb(255, 176, 252);")
+        self.TRANSACTION_btn.setGeometry(QtCore.QRect(1130, 200, 231, 71))
         self.TRANSACTION_btn.clicked.connect(self.onclick_transaction_btn)
 
         palette = QtGui.QPalette()
@@ -3671,7 +3685,8 @@ class LibraryFrontend(object):
         self.TRANSACTION_btn.setObjectName("TRANSACTION_btn")
         self.ADDING_btn = QtWidgets.QPushButton(self.centralwidget)
         self.ADDING_btn.setFont(m_btn_font)
-        self.ADDING_btn.setGeometry(QtCore.QRect(1130, 260, 231, 71))
+        self.ADDING_btn.setStyleSheet(u"background-color: rgb(138, 117, 255);")
+        self.ADDING_btn.setGeometry(QtCore.QRect(1130, 280, 231, 71))
         self.ADDING_btn.clicked.connect(self.onclick_adding_btn)
 
         palette = QtGui.QPalette()
@@ -3825,8 +3840,10 @@ class LibraryFrontend(object):
         self.ADDING_btn.setObjectName("ADDING_btn")
         self.REORT_btn = QtWidgets.QPushButton(self.centralwidget)
         self.REORT_btn.setFont(m_btn_font)
-        self.REORT_btn.setGeometry(QtCore.QRect(1130, 340, 231, 71))
+        self.REORT_btn.setStyleSheet(u"background-color: rgb(203, 255, 143);")
+        self.REORT_btn.setGeometry(QtCore.QRect(1130, 360, 231, 71))
         self.REORT_btn.clicked.connect(self.onclick_report_btn)
+
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -3972,13 +3989,15 @@ class LibraryFrontend(object):
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 128))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
+
         self.REORT_btn.setPalette(palette)
         self.REORT_btn.setAutoFillBackground(False)
         self.REORT_btn.setFlat(False)
         self.REORT_btn.setObjectName("REORT_btn")
         self.SEARCH_btn = QtWidgets.QPushButton(self.centralwidget)
         self.SEARCH_btn.setFont(m_btn_font)
-        self.SEARCH_btn.setGeometry(QtCore.QRect(1130, 100, 231, 71))
+        self.SEARCH_btn.setStyleSheet(u"background-color: rgb(85, 255, 255);")
+        self.SEARCH_btn.setGeometry(QtCore.QRect(1130, 120, 231, 71))
         self.SEARCH_btn.clicked.connect(self.onclick_search_button)
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
@@ -4298,7 +4317,7 @@ class LibraryFrontend(object):
         t_font.setFamily("Engravers MT")
         t_font.setPointSize(12)
         self.time_label = QtWidgets.QLabel(self.centralwidget)
-        self.time_label.setGeometry(QtCore.QRect(1130, 410, 231, 31))
+        self.time_label.setGeometry(QtCore.QRect(1130, 70, 231, 31))
         self.time_label.setObjectName("time_label")
         self.time_label.setFont(t_font)
         self.clg_logo = QtWidgets.QLabel(self.centralwidget)
@@ -4401,6 +4420,8 @@ class LibraryFrontend(object):
         self.label_2.setText(_translate("MainWindow", "Current burrowed "))
         self.issue_btn.setText(_translate("MainWindow", "Issue"))
         self.label_13.setText(_translate("MainWindow", "Role"))
+        self.issue_msg.setText(_translate("MainWindow", "Issued sucessfully !"))
+        self.return_msg.setText(_translate("MainWindow", "Returned sucessfully !"))
         self.issue_role_cbox.setItemText(0, _translate("MainWindow", "Student"))
         self.issue_role_cbox.setItemText(1, _translate("MainWindow", "Faculty"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.issue_tab), _translate("MainWindow", "ISSUE"))
@@ -4544,6 +4565,8 @@ class LibraryFrontend(object):
 
 
     def hide_unwanted(self):
+        self.issue_msg.hide()
+        self.return_msg.hide()
         self.search_book_table.hide()
         self.search_student_table.hide()
         self.search_faculty_table.hide()
@@ -4826,6 +4849,7 @@ class LibraryFrontend(object):
 
 
     def onclick_issue_btn(self):
+        self.issue_msg.hide()
         role = self.issue_role_cbox.currentText()
         roll_no = self.issue_register_cbox.text()
         if roll_no in get_all_roll_no():
@@ -4837,6 +4861,7 @@ class LibraryFrontend(object):
                 book_id = book_ids_cbox[i].currentText()
                 add_issued_book_to_db(role, roll_no, book_id)
                 add_2_report(role, roll_no, book_id, self.current_user)
+            self.issue_msg.show()
             self.hide_issue_book_ids()
 
 
@@ -4878,6 +4903,7 @@ class LibraryFrontend(object):
 
 
     def onclick_return_btn(self):
+        self.return_msg.hide()
         roll_number = self.return_reg_no_cbox.text()
         role = self.return_role_cbox.currentText()
         if roll_number!="":
@@ -4886,6 +4912,7 @@ class LibraryFrontend(object):
                     book_id, title  = check_box.text().split(" | ")
                     return_book(role, roll_number, book_id, self.current_user)
                 check_box.hide()
+            self.return_msg.show()
             self.check_boxes_names = None
 
     def onclick_full_report_btn(self):
