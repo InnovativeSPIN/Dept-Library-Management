@@ -4880,12 +4880,13 @@ class LibraryFrontend(object):
     def onclick_return_btn(self):
         roll_number = self.return_reg_no_cbox.text()
         role = self.return_role_cbox.currentText()
-        for check_box in self.check_boxes_names:
-            if check_box.isChecked():
-                book_id, title  = check_box.text().split(" | ")
-                return_book(role, roll_number, book_id, self.current_user)
-            check_box.hide()
-        self.check_boxes_names = None
+        if roll_number!="":
+            for check_box in self.check_boxes_names:
+                if check_box.isChecked():
+                    book_id, title  = check_box.text().split(" | ")
+                    return_book(role, roll_number, book_id, self.current_user)
+                check_box.hide()
+            self.check_boxes_names = None
 
     def onclick_full_report_btn(self):
         pdf_path = self.get_file_path()

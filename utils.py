@@ -252,7 +252,8 @@ def get_report_by(col_name, name, role="Student"):
 def get_report_by_date(role, from_date, to_date):
     cursor.execute("SELECT type, rollno, book_id, title_of_book, given_by, given_date, given_time, validate_date, "
                    "returned_to, return_date, return_time FROM FullReport WHERE  given_date >= '{}' AND given_date<='{}' AND type='{}'".format(from_date, to_date, role))
-    return np.array(cursor.fetchall()).flatten().tolist()
+    return np.array(cursor.fetchall()).tolist()
+
 
 def close_db():
     conn.close()
