@@ -4323,7 +4323,7 @@ class LibraryFrontend(object):
         self.clg_logo = QtWidgets.QLabel(self.centralwidget)
         self.clg_logo.setGeometry(QtCore.QRect(1170, 500, 156, 156))
         self.clg_logo.setText("")
-        self.clg_logo.setPixmap(QtGui.QPixmap("Assets/ISPIN LOGO 1223.png"))
+        #self.clg_logo.setPixmap(QtGui.QPixmap("Assets/ISPIN LOGO 1223.png"))
         self.clg_logo.setScaledContents(True)
         self.clg_logo.setObjectName("clg_logo")
         self.add_faculty_sucessful_msg = QtWidgets.QLabel(self.add_faculty_tab)
