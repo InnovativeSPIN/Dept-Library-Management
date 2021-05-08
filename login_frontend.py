@@ -23,7 +23,7 @@ class LoginFrontend(object):
         self.bg_label = QtWidgets.QLabel(Dialog)
         self.bg_label.setGeometry(QtCore.QRect(0, 0, 1366, 768))
         self.bg_label.setText("")
-        self.bg_label.setPixmap(QtGui.QPixmap("Assets/Web 1920 – 1.png"))
+        self.bg_label.setPixmap(QtGui.QPixmap("Assets/library_bg.png"))
         self.bg_label.setObjectName("bg_label")
         self.tabWidget = QtWidgets.QTabWidget(Dialog)
         self.tabWidget.setGeometry(QtCore.QRect(800, 210, 411, 331))
@@ -406,7 +406,7 @@ class LoginFrontend(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        Dialog.setWindowTitle(_translate("Dialog", "LMS Login"))
         self.usr_label.setText(_translate("Dialog", "USERNAME"))
         self.pass_label.setText(_translate("Dialog", "PASSWORD"))
         self.login_btn.setText(_translate("Dialog", "LOGIN"))
@@ -537,7 +537,7 @@ class LibraryFrontend(object):
         font.setPointSize(10)
 
         m_btn_font = QtGui.QFont()
-        m_btn_font.setFamily("Engravers MT")
+        m_btn_font.setFamily("times new roman")
         m_btn_font.setPointSize(12)
 
         MainWindow.setFont(font)
@@ -3530,7 +3530,7 @@ class LibraryFrontend(object):
         self.stackedWidget.addWidget(self.report_page)
         self.TRANSACTION_btn = QtWidgets.QPushButton(self.centralwidget)
         self.TRANSACTION_btn.setFont(m_btn_font)
-        self.TRANSACTION_btn.setStyleSheet(u"background-color: rgb(255, 176, 252);")
+        self.TRANSACTION_btn.setStyleSheet(u"background-color: #FFC8AC;")
         self.TRANSACTION_btn.setGeometry(QtCore.QRect(1130, 200, 231, 71))
         self.TRANSACTION_btn.clicked.connect(self.onclick_transaction_btn)
 
@@ -3685,7 +3685,7 @@ class LibraryFrontend(object):
         self.TRANSACTION_btn.setObjectName("TRANSACTION_btn")
         self.ADDING_btn = QtWidgets.QPushButton(self.centralwidget)
         self.ADDING_btn.setFont(m_btn_font)
-        self.ADDING_btn.setStyleSheet(u"background-color: rgb(138, 117, 255);")
+        self.ADDING_btn.setStyleSheet(u"background-color: #FFC8AC;")
         self.ADDING_btn.setGeometry(QtCore.QRect(1130, 280, 231, 71))
         self.ADDING_btn.clicked.connect(self.onclick_adding_btn)
 
@@ -3840,7 +3840,7 @@ class LibraryFrontend(object):
         self.ADDING_btn.setObjectName("ADDING_btn")
         self.REORT_btn = QtWidgets.QPushButton(self.centralwidget)
         self.REORT_btn.setFont(m_btn_font)
-        self.REORT_btn.setStyleSheet(u"background-color: rgb(203, 255, 143);")
+        self.REORT_btn.setStyleSheet(u"background-color: #FFC8AC;")
         self.REORT_btn.setGeometry(QtCore.QRect(1130, 360, 231, 71))
         self.REORT_btn.clicked.connect(self.onclick_report_btn)
 
@@ -3996,7 +3996,7 @@ class LibraryFrontend(object):
         self.REORT_btn.setObjectName("REORT_btn")
         self.SEARCH_btn = QtWidgets.QPushButton(self.centralwidget)
         self.SEARCH_btn.setFont(m_btn_font)
-        self.SEARCH_btn.setStyleSheet(u"background-color: rgb(85, 255, 255);")
+        self.SEARCH_btn.setStyleSheet(u"background-color: #FFC8AC;")
         self.SEARCH_btn.setGeometry(QtCore.QRect(1130, 120, 231, 71))
         self.SEARCH_btn.clicked.connect(self.onclick_search_button)
         palette = QtGui.QPalette()
@@ -4323,7 +4323,7 @@ class LibraryFrontend(object):
         self.clg_logo = QtWidgets.QLabel(self.centralwidget)
         self.clg_logo.setGeometry(QtCore.QRect(1170, 500, 156, 156))
         self.clg_logo.setText("")
-        self.clg_logo.setPixmap(QtGui.QPixmap("Assets/UI\\../nscet.jpg"))
+        self.clg_logo.setPixmap(QtGui.QPixmap("Assets/ISPIN LOGO 1223.png"))
         self.clg_logo.setScaledContents(True)
         self.clg_logo.setObjectName("clg_logo")
         self.add_faculty_sucessful_msg = QtWidgets.QLabel(self.add_faculty_tab)
@@ -4387,7 +4387,7 @@ class LibraryFrontend(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Library Management System"))
         self.issue_register_label.setText(_translate("MainWindow", "Roll Number"))
         self.issue_check_btn.setText(_translate("MainWindow", "check"))
         self.issue_no_of_books_labels.setText(_translate("MainWindow", "Books to issue now"))
@@ -4894,19 +4894,27 @@ class LibraryFrontend(object):
             check_box_names.append(self.return_checkbox)
         return check_box_names
 
+    def clear_check_bx(self):
+        for xx in self.check_boxes_names:
+            xx.hide()
 
     def onclick_return_check_btn(self):
+        try:
+            self.clear_check_bx()
+        except:
+            pass
         role = self.return_role_cbox.currentText()
         roll_number = self.return_reg_no_cbox.text()
         burrowed_books = get_burrowed_books(role, roll_number)
-        self.check_boxes_names = self.display_return_check_box(burrowed_books)
+        if roll_number in get_all_roll_no():
+            self.check_boxes_names = self.display_return_check_box(burrowed_books)
 
 
     def onclick_return_btn(self):
         self.return_msg.hide()
         roll_number = self.return_reg_no_cbox.text()
         role = self.return_role_cbox.currentText()
-        if roll_number!="":
+        if roll_number in get_all_roll_no():
             for check_box in self.check_boxes_names:
                 if check_box.isChecked():
                     book_id, title  = check_box.text().split(" | ")
@@ -4923,8 +4931,10 @@ class LibraryFrontend(object):
             self.save_pdf_report(pdf_path, full_data)
             self.fill_table(self.reporttablewidget, full_data[1:])
             self.reporttablewidget.show()
+
         except:
             pass
+
 
 
     def generate_report(self):
@@ -4953,12 +4963,11 @@ class LibraryFrontend(object):
     def save_pdf_report(self, file_name, data):
         pdf = SimpleDocTemplate(
             file_name,
-            pagesize=A4
+            pagesize=landscape(A4)
         )
+
         table = Table(data)
-
-        f = open("Assets/nscet.jpg", 'rb')
-
+        f = open("Assets/report_title.png", 'rb')
         style = TableStyle([
             ('BACKGROUND', (0, 0), (20, 0), colors.green),
             ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
