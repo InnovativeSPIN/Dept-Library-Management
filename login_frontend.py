@@ -527,8 +527,8 @@ class LibraryFrontend(object):
         self.login_ui = LoginFrontend()
         self.current_user = current_user
         self.dialog = MainWindow
-
         MainWindow.setObjectName("MainWindow")
+
         MainWindow.resize(1366, 728)
         MainWindow.setMinimumSize(QtCore.QSize(1366, 728))
         MainWindow.setMaximumSize(QtCore.QSize(1366, 728))
