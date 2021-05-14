@@ -244,20 +244,35 @@ def get_full_report():
                    "returned_to, return_date, return_time FROM FullReport")
     return np.array(cursor.fetchall()).tolist()
 
-def get_report_by(col_name, name, role="Student"):
-    cursor.execute("SELECT type, rollno, book_id, title_of_book, given_by, given_date, given_time, validate_date, "
-                   "returned_to, return_date, return_time FROM FullReport WHERE {}='{}' AND type='{}'".format(col_name, name, role))
+def get_report_by(col_name, name, role="Student", is_only_not_returned=False):
+    if is_only_not_returned:
+        cursor.execute("SELECT type, rollno, book_id, title_of_book, given_by, given_date, given_time, validate_date, "
+                       "returned_to, return_date, return_time FROM FullReport WHERE {}='{}' AND type='{}' AND return_date='-'".format(
+            col_name, name, role))
+    else:
+        cursor.execute("SELECT type, rollno, book_id, title_of_book, given_by, given_date, given_time, validate_date, "
+                       "returned_to, return_date, return_time FROM FullReport WHERE {}='{}' AND type='{}'".format(col_name, name, role))
     return np.array(cursor.fetchall()).tolist()
 
-def get_report_by_date(role, from_date, to_date):
-    cursor.execute("SELECT type, rollno, book_id, title_of_book, given_by, given_date, given_time, validate_date, "
-                   "returned_to, return_date, return_time FROM FullReport WHERE  given_date >= '{}' AND given_date<='{}' AND type='{}'".format(from_date, to_date, role))
+
+def get_report_by_date(role, from_date, to_date, is_only_not_returned=False):
+    if is_only_not_returned:
+        cursor.execute("SELECT type, rollno, book_id, title_of_book, given_by, given_date, given_time, validate_date, "
+                       "returned_to, return_date, return_time FROM FullReport WHERE  given_date >= '{}' AND given_date<='{}' AND type='{}'AND return_date='-'".format(from_date, to_date, role))
+    else:
+        cursor.execute("SELECT type, rollno, book_id, title_of_book, given_by, given_date, given_time, validate_date, "
+                       "returned_to, return_date, return_time FROM FullReport WHERE  given_date >= '{}' AND given_date<='{}' AND type='{}'".format(from_date, to_date, role))
     return np.array(cursor.fetchall()).tolist()
 
-def get_report_by_semester(semester):
-    cursor.execute("SELECT type, rollno, book_id, title_of_book, given_by, given_date, given_time, validate_date, returned_to, return_date, return_time FROM FullReport WHERE rollno in (SELECT rollno FROM student_details where semester='{}')".format(semester))
-    return np.array(cursor.fetchall()).tolist()
 
+def get_report_by_semester(semester, is_only_not_returned=False):
+    if is_only_not_returned:
+        cursor.execute(
+            "SELECT type, rollno, book_id, title_of_book, given_by, given_date, given_time, validate_date, returned_to, return_date, return_time FROM FullReport WHERE return_date='-' AND rollno in (SELECT rollno FROM student_details where semester='{}')".format(
+                semester))
+    else:
+        cursor.execute("SELECT type, rollno, book_id, title_of_book, given_by, given_date, given_time, validate_date, returned_to, return_date, return_time FROM FullReport WHERE rollno in (SELECT rollno FROM student_details where semester='{}')".format(semester))
+    return np.array(cursor.fetchall()).tolist()
 
 def close_db():
     conn.close()

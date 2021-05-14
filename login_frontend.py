@@ -3206,6 +3206,12 @@ class LibraryFrontend(object):
         self.report_register_no_label = QtWidgets.QLabel(self.report_page)
         self.report_register_no_label.setGeometry(QtCore.QRect(180, 20, 101, 31))
         self.report_register_no_label.setObjectName("report_register_no_label")
+
+        self.report_only_not_returned_check = QtWidgets.QCheckBox(self.report_page)
+        self.report_only_not_returned_check.setGeometry(QtCore.QRect(860, 20, 200, 31))
+        self.report_only_not_returned_check.setObjectName("report_only_not_returned_check")
+        self.report_only_not_returned_check.setText("Only not returned")
+
         self.report_semester_label = QtWidgets.QLabel(self.report_page)
         self.report_semester_label.setGeometry(QtCore.QRect(425, 20, 101, 31))
         self.report_semester_label.setObjectName("report_semester_label")
@@ -3224,7 +3230,7 @@ class LibraryFrontend(object):
         self.report_2_date.setGeometry(QtCore.QRect(735, 20, 110, 31))
         self.report_2_date.setObjectName("report_2_date")
         self.report_generate_btn = QtWidgets.QPushButton(self.report_page)
-        self.report_generate_btn.setGeometry(QtCore.QRect(865, 20, 110, 31))
+        self.report_generate_btn.setGeometry(QtCore.QRect(1000, 20, 110, 31))
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -3379,7 +3385,7 @@ class LibraryFrontend(object):
         self.label_4.setGeometry(QtCore.QRect(545, 20, 31, 31))
         self.label_4.setObjectName("label_4")
         self.full_report_btn = QtWidgets.QPushButton(self.report_page)
-        self.full_report_btn.setGeometry(QtCore.QRect(1000, 20, 110, 31))
+        self.full_report_btn.setGeometry(QtCore.QRect(1000, 55, 110, 31))
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -4957,13 +4963,14 @@ class LibraryFrontend(object):
         semester = self.report_semester_in.text()
         from_date = self.report_from_date.text()
         to_date = self.report_2_date.text()
+        is_only_not_returned = self.report_only_not_returned_check.isChecked()
 
         if roll_number!="":
-            datas = get_report_by("rollno", roll_number, role=role)
+            datas = get_report_by("rollno", roll_number, role=role, is_only_not_returned=is_only_not_returned)
         elif semester!="":
-            datas = get_report_by_semester(semester)
+            datas = get_report_by_semester(semester, is_only_not_returned=is_only_not_returned)
         else:
-            datas = get_report_by_date(role, from_date, to_date)
+            datas = get_report_by_date(role, from_date, to_date, is_only_not_returned=is_only_not_returned)
 
         self.fill_table(self.reporttablewidget, datas)
         datas.insert(0, self.col_names)
