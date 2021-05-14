@@ -3204,19 +3204,27 @@ class LibraryFrontend(object):
         self.report_page = QtWidgets.QWidget()
         self.report_page.setObjectName("report_page")
         self.report_register_no_label = QtWidgets.QLabel(self.report_page)
-        self.report_register_no_label.setGeometry(QtCore.QRect(210, 20, 101, 31))
+        self.report_register_no_label.setGeometry(QtCore.QRect(180, 20, 101, 31))
         self.report_register_no_label.setObjectName("report_register_no_label")
+        self.report_semester_label = QtWidgets.QLabel(self.report_page)
+        self.report_semester_label.setGeometry(QtCore.QRect(425, 20, 101, 31))
+        self.report_semester_label.setObjectName("report_semester_label")
         self.report_register_cbox = QtWidgets.QLineEdit(self.report_page)
-        self.report_register_cbox.setGeometry(QtCore.QRect(290, 20, 151, 31))
+        self.report_register_cbox.setGeometry(QtCore.QRect(255, 20, 151, 31))
         self.report_register_cbox.setObjectName("report_register_cbox")
+
+        self.report_semester_in = QtWidgets.QLineEdit(self.report_page)
+        self.report_semester_in.setGeometry(QtCore.QRect(480, 20, 50, 31))
+        self.report_semester_in.setObjectName("report_semester_in")
+
         self.report_from_date = QtWidgets.QDateEdit(self.report_page)
-        self.report_from_date.setGeometry(QtCore.QRect(540, 20, 110, 31))
+        self.report_from_date.setGeometry(QtCore.QRect(585, 20, 110, 31))
         self.report_from_date.setObjectName("report_from_date")
         self.report_2_date = QtWidgets.QDateEdit(self.report_page)
-        self.report_2_date.setGeometry(QtCore.QRect(690, 20, 110, 31))
+        self.report_2_date.setGeometry(QtCore.QRect(735, 20, 110, 31))
         self.report_2_date.setObjectName("report_2_date")
         self.report_generate_btn = QtWidgets.QPushButton(self.report_page)
-        self.report_generate_btn.setGeometry(QtCore.QRect(820, 20, 110, 31))
+        self.report_generate_btn.setGeometry(QtCore.QRect(865, 20, 110, 31))
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -3365,10 +3373,10 @@ class LibraryFrontend(object):
         self.report_generate_btn.setPalette(palette)
         self.report_generate_btn.setObjectName("report_generate_btn")
         self.label_3 = QtWidgets.QLabel(self.report_page)
-        self.label_3.setGeometry(QtCore.QRect(670, 20, 21, 31))
+        self.label_3.setGeometry(QtCore.QRect(715, 20, 21, 31))
         self.label_3.setObjectName("label_3")
         self.label_4 = QtWidgets.QLabel(self.report_page)
-        self.label_4.setGeometry(QtCore.QRect(500, 20, 31, 31))
+        self.label_4.setGeometry(QtCore.QRect(545, 20, 31, 31))
         self.label_4.setObjectName("label_4")
         self.full_report_btn = QtWidgets.QPushButton(self.report_page)
         self.full_report_btn.setGeometry(QtCore.QRect(1000, 20, 110, 31))
@@ -4546,6 +4554,7 @@ class LibraryFrontend(object):
         self.label_51.setText(_translate("MainWindow", "Designation      :"))
         self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.tab_3), _translate("MainWindow", "FACULTY"))
         self.report_register_no_label.setText(_translate("MainWindow", "Roll Number"))
+        self.report_semester_label.setText(_translate("MainWindow", "Semester"))
         self.report_generate_btn.setText(_translate("MainWindow", "Generate"))
         self.label_3.setText(_translate("MainWindow", "To"))
         self.label_4.setText(_translate("MainWindow", "From"))
@@ -4942,17 +4951,20 @@ class LibraryFrontend(object):
             pass
 
 
-
     def generate_report(self):
         role = self.report_typecbox.currentText()
         roll_number = self.report_register_cbox.text()
+        semester = self.report_semester_in.text()
         from_date = self.report_from_date.text()
         to_date = self.report_2_date.text()
 
         if roll_number!="":
             datas = get_report_by("rollno", roll_number, role=role)
+        elif semester!="":
+            datas = get_report_by_semester(semester)
         else:
             datas = get_report_by_date(role, from_date, to_date)
+
         self.fill_table(self.reporttablewidget, datas)
         datas.insert(0, self.col_names)
         fp = self.get_file_path()
