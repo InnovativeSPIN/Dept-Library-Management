@@ -23,6 +23,7 @@ def get_students_register_number():
 def get_book_id():
     cursor.execute("SELECT book_id FROM book_details")
     roll_no = np.array(cursor.fetchall())
+    
     return roll_no.flatten().tolist()
 
 def get_faculty_roll_no():
@@ -121,9 +122,9 @@ def return_book(ty, roll_no, book_id, curr_librarian):
     conn.commit()
 
 
-def add_student_2_db(roll_no, stu_name, year, stu_semester, stu_dept):
-    cursor.execute("INSERT OR IGNORE INTO student_details VALUES ('{}', '{}', '{}', '{}', '{}')".format(roll_no.lower(), stu_name, year,
-                                                                                              stu_semester, stu_dept))
+def add_student_2_db(roll_no, stu_name, batch, stu_dept):
+    cursor.execute("INSERT OR IGNORE INTO student_details VALUES ('{}', '{}', '{}', '{}')".format(str(roll_no).lower(), stu_name, batch,
+                                                                                               stu_dept))
     conn.commit()
 
 
@@ -161,12 +162,12 @@ def add_by_excel(filepath, types=None):
             data.to_csv(new_path+"/added_books_with_GeneratedBooks_id.csv")
 
         if types=="student":
-            columns = ["rollno", "name", "year", "semester", "department"]
+            columns = ["rollno", "name", "batch", "department"]
             data = data[columns]
             for i in range(len(data)):
                 row = (data.iloc[i]).values
-                add_student_2_db(roll_no=row[0], stu_name=row[1], year=row[2],
-                                 stu_semester=row[3], stu_dept=row[4])
+                add_student_2_db(roll_no=row[0], stu_name=row[1], batch=row[2],
+                                  stu_dept=row[3])
 
         if types=="faculty":
             columns=["roll_number", "name", "designation", "department"]
@@ -220,7 +221,7 @@ def get_faculty_burrowed_details(roll_no):
     return np.array(cursor.fetchall()).tolist()
 
 def get_stu_details(roll_no):
-    cursor.execute("SELECT name, year, department FROM student_details WHERE rollno='{}'".format(roll_no))
+    cursor.execute("SELECT name, batch, department FROM student_details WHERE rollno='{}'".format(roll_no))
     return np.array(cursor.fetchall()).squeeze().tolist()
 
 def get_all_roll_no():
